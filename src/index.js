@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Snake from './Snake';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Snake />
   </React.StrictMode>,
   document.getElementById('root')
 );
