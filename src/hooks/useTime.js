@@ -1,10 +1,10 @@
-import * as React from 'react';
+import * as React from "react";
 
-export function useTime(shoulddPause = false) {
+export function useTime(shouldPause = false) {
   const [time, setTime] = React.useState(new Date());
 
   React.useEffect(() => {
-    if (shoulddPause) {
+    if (shouldPause) {
       return;
     }
     const timer = setInterval(() => {
@@ -12,8 +12,8 @@ export function useTime(shoulddPause = false) {
     }, 200);
     return () => {
       clearInterval(timer);
-    }
-  }, [shoulddPause]);
+    };
+  }, [shouldPause]);
 
   return time;
 }
