@@ -6,7 +6,8 @@
 # ISSUE
 
 1. why need re-addEventListener each change direction
-   because `direction` state is defined only when addEventListener and keep same value in handleKeydown function
+   because `direction` state is defined only when addEventListener and keep same value in handleKeydown function, because addEventListener is defined in useEffect
+   => can solve by attach eventListener to an element, not useEffect, but it not smooth
 2. Set speed lower and fast keydown change direction, what happend is not clear
 
 # NEED OPTIMIZE

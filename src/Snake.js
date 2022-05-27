@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./Snake.css";
 import { useTime } from "./hooks/useTime";
 
 const Snake = () => {
+  const gridRef = useRef(null);
+
   const maxX = 10;
   const maxY = 10;
   const defaultHead = {
@@ -45,13 +47,13 @@ const Snake = () => {
     setTail(cloneTail);
   }, [currentTime]);
 
-  useEffect(() => {
-    console.log("useEffect handleKeydown");
-    window.addEventListener("keydown", handleKeydown);
-    return () => {
-      window.removeEventListener("keydown", handleKeydown);
-    };
-  }, [direction, gameOver]);
+  // useEffect(() => {
+  //   console.log("useEffect handleKeydown");
+  //   window.addEventListener("keydown", handleKeydown);
+  //   return () => {
+  //     window.removeEventListener("keydown", handleKeydown);
+  //   };
+  // }, [direction, gameOver]);
 
   useEffect(() => {
     if (!gameOver) {
@@ -70,7 +72,7 @@ const Snake = () => {
   }, [gameOver]);
 
   const handleKeydown = (e) => {
-    console.log("handleKeydown");
+    console.log("handleKeydown", e.keyCode, direction);
     if (gameOver) {
       if (e.keyCode === 32) {
         setGameOver(false);
@@ -198,8 +200,12 @@ const Snake = () => {
     return cells;
   };
 
+  useEffect(() => {
+    gridRef.current.focus();
+  }, []);
+
   return (
-    <>
+    <div>
       <div class="bar">
         <span style={{ marginRight: 40 }}>Use W,A,S,D or arrow to play!</span>
         <span>Length: {tail.length}</span>
@@ -210,13 +216,18 @@ const Snake = () => {
           Pause
         </button>
       </div>
-      <div className="grid popup">
+      <div
+        className="grid popup"
+        onKeyDown={handleKeydown}
+        tabIndex="0"
+        ref={gridRef}
+      >
         <span class="popuptext" id="myPopup">
           Game over. Press Space to restart.
         </span>
         {head && generateCells()}
       </div>
-    </>
+    </div>
   );
 };
 
